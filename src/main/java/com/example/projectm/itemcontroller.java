@@ -38,8 +38,6 @@ public class itemcontroller{
     }
 
 
-
-
     @RequestMapping(value = "/addItem", method = RequestMethod.GET)
     public ModelAndView showForm2() {
         return new ModelAndView("addItem", "itemmodel", new itemModel());
@@ -62,7 +60,6 @@ public class itemcontroller{
 
         itemr.save(itms);
         
-
         return "index";
     }
 
