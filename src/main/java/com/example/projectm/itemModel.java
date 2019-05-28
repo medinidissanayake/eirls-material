@@ -15,7 +15,28 @@ public class itemModel {
 		this.itemid = itemid;
 	}
 
-   
+   private int contact;
+
+	public int getContact() {
+		return this.contact;
+	}
+
+	public void setContact(int contact) {
+		this.contact = contact;
+	}
+
+
+	private String email;
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
     private String itemname;
     
 
