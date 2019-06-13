@@ -26,60 +26,18 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class itemcontroller{
+public class logincontroller{
 
     @Autowired
-    itemrepo itemr;
+    userrepo urepo;
 
-    @RequestMapping("/home")
-    public String index(){
-        return "index";
-    }
+    @Autowired
+    itemrepo irepo;
 
-    @RequestMapping("/homemanager")
-    public String index2(){
-        return "indexmanager";
-    }
+ public void updateStocks(){
+     
 
-
-    @ResponseBody
-    @RequestMapping(value = "/showItems", method = RequestMethod.GET)
-    public List<items> getItems(){
-        return itemr.findAll(); 
-    }
-
-
-    @RequestMapping(value = "/addItem", method = RequestMethod.GET)
-    public ModelAndView showForm2() {
-        return new ModelAndView("addItem", "itemmodel", new itemModel());
-    }
-
-    @RequestMapping(value = "/placeItem", method = RequestMethod.POST)
-    public String submitdetails(@Valid @ModelAttribute("itemmodel") itemModel itemmodel, 
-      BindingResult result, ModelMap model) {
-        
-   
-
-        items itms = new items();
-
-        itms.setItem_name(itemmodel.getItemname());
-        itms.setItem_price(itemmodel.getPrice());
-        itms.setItem_description(itemmodel.getDescription());
-        itms.setItem_quantity(itemmodel.getQuantity());
-        itms.setReorder_level(itemmodel.getReorderlevel());
-        itms.setItem_type(itemmodel.getItemtype());
-
-        itemr.save(itms);
-        
-        return "indexmanager";
-    }
-
-    @RequestMapping(value = "/viewProducts", method = RequestMethod.GET)  
-    public ModelAndView bomView(ModelAndView model) throws ParseException {
-
-
-
-        String theUrl2 = "http://eirls.herokuapp.com/deliveryNotes";
+    String theUrl2 = "http://eirls.herokuapp.com/deliveryNotes";
     
     RestTemplate restTemplates = new RestTemplate();
 
@@ -97,7 +55,7 @@ public class itemcontroller{
 
       order_items[] resp = respEntity2.getBody();
 
-      List<items> listItems = itemr.findAll();
+      List<items> listItems = irepo.findAll();
 
       for (order_items var : resp) {
           
@@ -110,7 +68,7 @@ public class itemcontroller{
 
                     int quantity = item.getItem_quantity() - var.getItem_quantity();
 
-                    itemr.updateQuantity(quantity, item.getItem_name());
+                    irepo.updateQuantity(quantity, item.getItem_name());
                 }         
             }
             
@@ -123,15 +81,73 @@ public class itemcontroller{
     catch (Exception eek) {
       System.out.println("** Exception: " + eek.getMessage());
     }
+ }
+    
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView showForm3() {
 
-        List<items> list = itemr.findAll();
-
-        model.addObject("list", list);
-        model.setViewName("viewItems");
-
-        return model;
-    }
+      //  updateStocks();
+    return new ModelAndView("login", "usermod", new usermodel());
 
 
 }
 
+    @RequestMapping(value = "/placelogin", method = RequestMethod.POST)
+    public String submitdetails(@Valid @ModelAttribute("usermod") usermodel usermod, 
+    BindingResult result, ModelMap model) {
+
+        List<user> ulist = urepo.findAll();
+
+        for (user var : ulist) {
+
+            if(var.getUser_name().equals(usermod.getUsername())){
+
+                user u =  urepo.getUser(usermod.getUsername());
+
+    
+                if(u.getUser_type().equals("Material Clerk")){
+                    return "index";
+        
+                }else{
+                    return "indexmanager";
+                }
+        
+          
+               
+            }
+           
+        }
+
+        return "redirect:/login";
+       
+    
+    
+}
+
+@RequestMapping(value = "/signup", method = RequestMethod.GET)
+public ModelAndView signupform() {
+return new ModelAndView("signup", "usermod", new usermodel());
+
+
+}
+
+@RequestMapping(value = "/signupsubmit", method = RequestMethod.POST)
+    public String signupform2(@Valid @ModelAttribute("usermod") usermodel usermod, 
+    BindingResult result, ModelMap model) {
+    
+
+
+    user u = new user();
+
+  u.setUser_name(usermod.getUsername());
+  u.setPassword(usermod.getPass());
+  u.setUser_type(usermod.getUsertype());
+
+
+    urepo.save(u);
+    
+    return "index";
+}
+
+}

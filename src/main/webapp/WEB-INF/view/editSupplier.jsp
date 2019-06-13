@@ -9,8 +9,20 @@
 <body>
   <jsp:include page="managerNavBar.jsp"/>
    <form:form method="POST"
-          action="/placeSupp" modelAttribute="suppliermodel">
+          action="/updateSup" modelAttribute="suppliermodel">
              <table>
+              
+            <tr>
+               <td><form:label path = "supplierID">Select Order ID</form:label></td>
+               <td>
+                  <form:select path = "supplierID">
+                     <form:option value = "NONE" label = "Select"/>
+                     <form:options items = "${supList}" />
+                  </form:select>       
+               </td>
+            </tr>
+      
+
                 <tr>
                     <td><form:label path="brandname">Brand Name</form:label></td>
                     <td><form:input path="brandname"/></td>
@@ -26,7 +38,7 @@
                 <tr>
                     <td><form:label path="collectionloc">Collection Location</form:label></td>
                     <td><form:input path="collectionloc"/></td>
-                </tr>
+                <</tr>
                 <tr>
                     <td><form:label path="contact">Contact Number</form:label></td>
                     <td><form:input path="contact"/></td>

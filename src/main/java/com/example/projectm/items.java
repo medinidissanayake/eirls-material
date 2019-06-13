@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "stock_items", schema ="1fQc5ZhkUX")
@@ -111,5 +115,36 @@ private int reorder_quantity;
 		this.reorder_quantity = reorder_quantity;
 	}
 
+
+	@ManyToOne
+	@JoinColumn(name = "supplier_id", nullable = true)
+	@JsonIgnore
+	private supplier sup;
+
+	public supplier getSup() {
+		return this.sup;
+	}
+
+	public void setSup(supplier sup) {
+		this.sup = sup;
+	}
+
+
+	@Column(name = "lead_time")
+	private Integer lead_time;
+
+	public Integer getLead_time() {
+		return this.lead_time;
+	}
+
+	public void setLead_time(Integer lead_time) {
+		this.lead_time = lead_time;
+	}
+
+
+
+
+
+   
 
 }

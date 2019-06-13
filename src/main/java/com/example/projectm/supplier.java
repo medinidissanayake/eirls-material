@@ -1,11 +1,16 @@
 package com.example.projectm;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "supplier", schema ="1fQc5ZhkUX")
@@ -77,7 +82,6 @@ public class supplier{
 
 
 	@Column(name="delivery_location")
-
 	private String delivery_location;
 
 	public String getDelivery_location() {
@@ -91,7 +95,6 @@ public class supplier{
 	
 
 	@Column(name="collection_location")
-
 	private String collection_location;
 
 	public String getCollection_location() {
@@ -103,7 +106,57 @@ public class supplier{
 	}
 
 
+	@Column(name="supplier_status")
+	private String supplier_status;
+
+	public String getSupplier_status() {
+		return this.supplier_status;
+	}
+
+	public void setSupplier_status(String supplier_status) {
+		this.supplier_status = supplier_status;
+	}
+
+	@OneToMany(mappedBy = "sup")
+	@JsonIgnoreProperties("sup")
+  private Set<items> ord;
+
+	public Set<items> getOrd() {
+		return this.ord;
+	}
+
+	public void setOrd(Set<items> ord) {
+		this.ord = ord;
+	}
 
 
+	@Column(name="delivery_performance")
+	private String delivery_performance;
+
+	public String getDelivery_performance() {
+		return this.delivery_performance;
+	}
+
+	public void setDelivery_performance(String delivery_performance) {
+		this.delivery_performance = delivery_performance;
+	}
+
+
+	
+
+	
+	@Column(name="quality_performance")
+	private String quality_performance;
+
+
+	public String getQuality_performance() {
+		return this.quality_performance;
+	}
+
+	public void setQuality_performance(String quality_performance) {
+		this.quality_performance = quality_performance;
+	}
+
+	
 	
 }
