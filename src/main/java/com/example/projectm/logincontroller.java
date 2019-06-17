@@ -2,6 +2,7 @@ package com.example.projectm;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -34,10 +35,13 @@ public class logincontroller{
     @Autowired
     itemrepo irepo;
 
+    @Autowired
+    orderitemsRepo ordrepo;
+
  public void updateStocks(){
      
 
-    String theUrl2 = "http://eirls.herokuapp.com/deliveryNotes";
+    String theUrl2 = "https://eirls-sales.herokuapp.com/api/enquiries";
     
     RestTemplate restTemplates = new RestTemplate();
 
@@ -48,33 +52,72 @@ public class logincontroller{
      
       HttpEntity<String> entities = new HttpEntity<String>("parameters", headers);
 
-      ResponseEntity<order_items[]> respEntity2 = restTemplates.exchange(theUrl2, HttpMethod.GET, entities,
-      order_items[].class);
+      ResponseEntity<salesorder[]> respEntity2 = restTemplates.exchange(theUrl2, HttpMethod.GET, entities,
+      salesorder[].class);
       
       
 
-      order_items[] resp = respEntity2.getBody();
+      salesorder[] resp = respEntity2.getBody();
 
       List<items> listItems = irepo.findAll();
 
-      for (order_items var : resp) {
-          
-        for (items item : listItems) {
+    salesorder[] resp2 = resp;
 
+	for (salesorder var : resp2) {
 
-            if(var.getItem_name().equals(item.getItem_name())){
+        Set<enquiryItems> ilist = var.getEnquiryItems();
+        List<order_items> ordlist = ordrepo.findAll();
 
-                if(var.getItem_quantity() < item.getItem_quantity()){
-
-                    int quantity = item.getItem_quantity() - var.getItem_quantity();
-
-                    irepo.updateQuantity(quantity, item.getItem_name());
-                }         
+        if(ordlist.isEmpty()){
+            for (enquiryItems eitem : ilist) {
+                order_items oitem = new order_items();
+                oitem.setItem_id(eitem.getId());
+                oitem.setItem_name(eitem.getItem().getName());
+                oitem.setItem_quantity(eitem.getQuantity());
+                oitem.setProduct_status("reserved");
+                oitem.setSales_order_id(var.getId());
+                ordrepo.save(oitem);
+                items i = irepo.getitem(eitem.getItem().getId());
+                int newquantity = i.getItem_quantity() - eitem.getQuantity();
+                irepo.updateQuantity(newquantity, i.getItem_name());
+                
             }
-            
-        }
 
-      }
+
+        }else{
+            boolean x = true;
+
+            for (enquiryItems eitem : ilist) {
+
+            for (order_items ord : ordlist) {
+
+                if(eitem.getId()==ord.getItem_id()){
+                        x = true;
+                        break;
+                }else{
+                        x = false;
+
+                }
+            }
+            if(x==false){
+                    order_items oitem = new order_items();
+                    oitem.setItem_id(eitem.getId());
+                    oitem.setItem_name(eitem.getItem().getName());
+                    oitem.setItem_quantity(eitem.getQuantity());
+                    oitem.setProduct_status("reserved");
+                    oitem.setSales_order_id(var.getId());
+                    ordrepo.save(oitem);
+                    items i = irepo.getitem(eitem.getItem().getId());
+                    int newquantity = i.getItem_quantity() - eitem.getQuantity();
+                    irepo.updateQuantity(newquantity, i.getItem_name());
+                    
+            }
+                      
+        }
+    }
+    
+       }
+  
        
     } 
   
@@ -87,7 +130,8 @@ public class logincontroller{
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView showForm3() {
 
-      //  updateStocks();
+        updateStocks();
+    
     return new ModelAndView("login", "usermod", new usermodel());
 
 

@@ -8,7 +8,7 @@
     <style>
 
 .dropbtn {
-    background-color: gray;
+    background-color: pink;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -19,7 +19,7 @@
 
 .dropbtn:hover{
         background-color: white;
-     color:purple;
+     color:black;
      transition:0.5s;
 }
 
@@ -62,7 +62,7 @@
 .NavBar{
     border:3px solid black;
         border-radius:1px;
-    background-color:gray;
+    background-color:pink;
 }
 .space{ 
     width:900px;
@@ -81,9 +81,8 @@
     <a href="/home">    <button class="dropbtn">Home </button></a> 
      
 
-    <a href="">    <button class="dropbtn"> Reserve stock items </button></a> 
-    <a href="">    <button class="dropbtn"> Check product stock </button></a> 
-     <a href="/viewProducts">    <button class="dropbtn"> Retrieve BOM </button></a> 
+    <a href="/reservedStocks">    <button class="dropbtn"> Reserve stock items </button></a> 
+     <a href="/viewProducts">    <button class="dropbtn"> Check Product Details </button></a> 
          
           <div class="space"></div>
   <a href="/login">    <button class="dropbtn"> Logout </button></a> 

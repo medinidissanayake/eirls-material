@@ -19,7 +19,6 @@ public class order_items{
 
 
 @Id
-@GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "item_id")
     private int item_id;
 
@@ -30,6 +29,22 @@ public class order_items{
 	public void setItem_id(int item_id) {
 		this.item_id = item_id;
 	}
+
+	@Column(name="sales_order_id")
+	private int sales_order_id;
+
+	public int getSales_order_id() {
+		return this.sales_order_id;
+	}
+
+	public void setSales_order_id(int sales_order_id) {
+		this.sales_order_id = sales_order_id;
+	}
+
+
+	
+
+
 
 
 @Column(name = "item_name")    
@@ -54,6 +69,17 @@ private int item_quantity;
 
 	public void setItem_quantity(int item_quantity) {
 		this.item_quantity = item_quantity;
+	}
+
+	@Column(name="product_status")
+	private String product_status;
+
+	public String getProduct_status() {
+		return this.product_status;
+	}
+
+	public void setProduct_status(String product_status) {
+		this.product_status = product_status;
 	}
 
 

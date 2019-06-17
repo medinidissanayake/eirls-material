@@ -12,20 +12,18 @@
 
 <table border="2">
 
+    <th>Order ID</th>
     <th>Item name</th>
-    <th>Item type</th>
-    <th>Item quantity</th>
-    <th>Item price</th>
-     <th>Reorder quantity</th>
+    <th>Item quantity</th>  
+     <th>Product status</th>
     
 
     <c:forEach var="products" items="${list}">
       <tr>
+        <td>${products.getSales_order_id()}</td>
         <td>${products.getItem_name()}</td>
-        <td>${products.getItem_type()}</td>
         <td>${products.getItem_quantity()}</td>
-       <td>${products.getItem_price()}</td>
-       <td>${products.getReorder_quantity()}</td>
+       <td>${products.getProduct_status()}</td>
        
       </tr>
     </c:forEach>

@@ -38,4 +38,12 @@ public interface itemrepo extends CrudRepository<items, String> {
     @Modifying(clearAutomatically = true)
     @Query("update items e set e.item_quantity=:#{#quant} where e.item_name=:#{#iname}")
     void updateQuantity(@Param("quant")int quant, @Param("iname") String iname);
+
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("update items e set e.item_quantity=:#{#quant} where e.item_id=:#{#iid}")
+    void updateQuantitywithID(@Param("quant")int quant, @Param("iid") int iid);
+
 }
+

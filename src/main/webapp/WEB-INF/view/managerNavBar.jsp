@@ -8,7 +8,7 @@
     <style>
 
 .dropbtn {
-    background-color: gray;
+    background-color: pink;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -19,7 +19,7 @@
 
 .dropbtn:hover{
         background-color: white;
-     color:purple;
+     color:black;
      transition:0.5s;
 }
 
@@ -62,7 +62,7 @@
 .NavBar{
     border:3px solid black;
         border-radius:1px;
-    background-color:gray;
+    background-color:pink;
 }
 .space{ 
     width:900px;
