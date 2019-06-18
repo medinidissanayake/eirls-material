@@ -8,7 +8,7 @@
     <style>
 
 .dropbtn {
-    background-color: pink;
+    background-color: #4db8ff;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -19,7 +19,7 @@
 
 .dropbtn:hover{
         background-color: white;
-     color:black;
+     color:#33adff;
      transition:0.5s;
 }
 
@@ -31,7 +31,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #cce0ff;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -54,7 +54,7 @@
 
 .dropdown:hover .dropbtn {
     background-color: white;
-     color:purple;
+     color:#33adff;
      transition:0.5s;
      cursor: pointer
 }
@@ -62,7 +62,7 @@
 .NavBar{
     border:3px solid black;
         border-radius:1px;
-    background-color:pink;
+    background-color:#4db8ff;
 }
 .space{ 
     width:900px;

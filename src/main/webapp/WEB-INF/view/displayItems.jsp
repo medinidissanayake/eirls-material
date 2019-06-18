@@ -6,6 +6,20 @@
 <head>
     <title>Display products</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+    body {
+       
+    background-color: #E6E6FA;
+    font-family: Times New Roman;
+    font-size: 20px;
+    text-align:center;
+    
+
+    }
+    
+    
+
+    </style>
 </head>
 <body>
 <jsp:include page="managerNavBar.jsp"/>

@@ -6,11 +6,46 @@
 <head>
     <title>Display products</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+    body {
+       
+    background-color: #E6E6FA;
+    font-family: Times New Roman;
+    font-size: 20px;
+    text-align:center;
+    
+   
+
+    }
+    table.center {
+  border-collapse: collapse;
+  width: 80%;
+  
+    margin-left:auto; 
+    margin-right:auto;
+  
+}
+
+     th{
+      background-color: #cce0ff;
+  color: black;
+  height: 70px;
+    }
+     tr{
+      background-color: #cce0ff;
+  color: black;
+    }
+   
+
+    </style>
 </head>
 <body>
 <jsp:include page="clerkNavBar.jsp"/>
 
-<table border="2">
+<br>
+<br>
+
+<table border="2", class= "center">
 
     <th>Item name</th>
     <th>Item type</th>

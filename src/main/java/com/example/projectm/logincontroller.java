@@ -191,7 +191,7 @@ return new ModelAndView("signup", "usermod", new usermodel());
 
     urepo.save(u);
     
-    return "index";
+    return "redirect:/login";
 }
 
 }
